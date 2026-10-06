@@ -5,10 +5,10 @@ import viteLogo from './assets/vite.svg'
 import './App.css'
 import CadastrarCliente from './components/cadastroCliente'
 import CadastrarServico from './components/cadastroServico'
+import AgendarServico from './components/agendarServico'
 
 function App() {
 
-  const [abaAtiva, setAbaativa] = useState('null')
 
   return (
     <>
@@ -26,6 +26,7 @@ function App() {
 
       <CadastrarCliente />
       <CadastrarServico />
+      <AgendarServico />
 
 
     </>
