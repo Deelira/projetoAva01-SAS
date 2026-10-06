@@ -28,6 +28,7 @@ function CadastrarCliente() {
 
         console.log(novoCliente);
         console.log("Cliente cadastrado com sucesso!");
+        alert("Cliente cadastrado com sucesso!")
 
         setNome("");
         setEmail("");
@@ -39,7 +40,7 @@ function CadastrarCliente() {
         <div className="container-cliente">
             <h1>CADASTRO DE CLIENTE</h1>
             <form onSubmit={atualizarDados}>
-                <label htmlFor="nome"></label>
+                <label htmlFor="nome">Nome:</label>
                 <input
                     type="text"
                     id="nome"
@@ -49,7 +50,7 @@ function CadastrarCliente() {
                     required
                 />
 
-                <label htmlFor="email"></label>
+                <label htmlFor="email">Email:</label>
                 <input
                     type="email"
                     id="email"
@@ -59,7 +60,7 @@ function CadastrarCliente() {
                     required
                 />
 
-                <label htmlFor="usuario"></label>
+                <label htmlFor="usuario">Usuário:</label>
                 <input
                     type="text"
                     id="usuario"
@@ -69,7 +70,7 @@ function CadastrarCliente() {
                     required
                 />
 
-                <label htmlFor="senha"></label>
+                <label htmlFor="senha">Senha:</label>
                 <input
                     type="password"
                     id="senha"

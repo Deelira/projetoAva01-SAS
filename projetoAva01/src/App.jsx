@@ -32,7 +32,7 @@ function App() {
       <AgendarServico agendamentos={agendamentos} setAgendamentos={setAgendamentos} />
       
       <div className='agendamentos'>
-        <ListarAgendamentos agendamentos={agendamentos} />
+        <ListarAgendamentos agendamentos={agendamentos} setAgendamentos={setAgendamentos} />
       </div>
 
     </>
