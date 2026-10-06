@@ -1,14 +1,17 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import { useState, useEffect } from 'react' 
 import './App.css'
 import CadastrarCliente from './components/cadastroCliente'
 import CadastrarServico from './components/cadastroServico'
 import AgendarServico from './components/agendarServico'
+import ListarAgendamentos from './components/ListarAgendamentos'
 
 function App() {
 
+  const [agendamentos, setAgendamentos] = useState([]);
+
+  useEffect(() => {
+    setAgendamentos(JSON.parse(localStorage.getItem("agendamentos")) || []);
+  }, []);
 
   return (
     <>
@@ -26,8 +29,11 @@ function App() {
 
       <CadastrarCliente />
       <CadastrarServico />
-      <AgendarServico />
-
+      <AgendarServico agendamentos={agendamentos} setAgendamentos={setAgendamentos} />
+      
+      <div className='agendamentos'>
+        <ListarAgendamentos agendamentos={agendamentos} />
+      </div>
 
     </>
   )
