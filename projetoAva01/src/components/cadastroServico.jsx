@@ -24,6 +24,7 @@ function CadastrarServico() {
 
         console.log(novoServico);
         console.log("Serviço cadastrado com sucesso!");
+        alert("Serviço cadastrado com sucesso!");
 
         setNome("");
         setDescricao("");
@@ -35,7 +36,7 @@ function CadastrarServico() {
         <div className="cadastro-servico">
             <h1>CADASTRO DE SERVIÇO</h1>
             <form onSubmit={atualizarDados}>
-                <label htmlFor="nome"></label>
+                <label htmlFor="nome">Nome:</label>
                 <input
                     type="text"
                     id="nome"
@@ -45,7 +46,7 @@ function CadastrarServico() {
                     required
                 />
 
-                <label htmlFor="descricao"></label>
+                <label htmlFor="descricao">Descrição:</label>
                 <input
                     type="text"
                     id="descricao"
@@ -55,7 +56,7 @@ function CadastrarServico() {
                     required
                 />
 
-                <label htmlFor="preco"></label>
+                <label htmlFor="preco">Valor</label>
                 <input
                     type="number"
                     id="preco"
@@ -65,7 +66,7 @@ function CadastrarServico() {
                     required
                 />
 
-                <label htmlFor="categoria"></label>
+                <label htmlFor="categoria">Categoria:</label>
                 <select
                     id="categoria"
                     value={categoria}

@@ -37,11 +37,13 @@ function AgendarServico({ agendamentos, setAgendamentos }) {
             },
             dataServico,
             horaServico,
+            status: "solicitado",
             criadoEm: new Date().toISOString(),
         };
 
         const listaAtualizada = [...agendamentos, novoAgendamento];
         setAgendamentos(listaAtualizada);
+        alert("Serviço agendado com sucesso!")
 
         localStorage.setItem("agendamentos", JSON.stringify(listaAtualizada));
 
@@ -49,6 +51,8 @@ function AgendarServico({ agendamentos, setAgendamentos }) {
         setServicoId("");
         setData("");
         setHora("");
+
+    
     }
 
     return (
@@ -62,7 +66,7 @@ function AgendarServico({ agendamentos, setAgendamentos }) {
                 </p>
             ) : (
                 <form onSubmit={agendar}>
-                    <label htmlFor="cliente">Cliente</label>
+                    <label htmlFor="cliente">Cliente:</label>
                     <select
                         id="cliente"
                         value={clienteId}
@@ -77,7 +81,7 @@ function AgendarServico({ agendamentos, setAgendamentos }) {
                         ))}
                     </select>
 
-                    <label htmlFor="servico">Serviço</label>
+                    <label htmlFor="servico">Serviço:</label>
                     <select
                         id="servico"
                         value={servicoId}
@@ -92,7 +96,7 @@ function AgendarServico({ agendamentos, setAgendamentos }) {
                         ))}
                     </select>
 
-                    <label htmlFor="data">Data</label>
+                    <label htmlFor="data">Data:</label>
                     <input
                         type="date"
                         id="data"
@@ -101,7 +105,7 @@ function AgendarServico({ agendamentos, setAgendamentos }) {
                         required
                     />
 
-                    <label htmlFor="hora">Hora</label>
+                    <label htmlFor="hora">Hora:</label>
                     <input
                         type="time"
                         id="hora"
@@ -117,5 +121,6 @@ function AgendarServico({ agendamentos, setAgendamentos }) {
         </div>
     );
 }
+
 
 export default AgendarServico;
