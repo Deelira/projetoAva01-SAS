@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react"; 
 import { storage } from "../utils/storage.js";
 
-function AgendarServico() {
+
+function AgendarServico({ agendamentos, setAgendamentos }) {
     const [clientes, setClientes] = useState([]);
     const [servicos, setServicos] = useState([]);
 
@@ -10,21 +11,16 @@ function AgendarServico() {
     const [horaServico, setHora] = useState("");
     const [dataServico, setData] = useState("");
 
-    const [agendamentos, setAgendamentos] = useState([]);
-
     useEffect(() => {
         setClientes(storage.getClientes());
         setServicos(storage.getServicos());
-        setAgendamentos(
-            JSON.parse(localStorage.getItem("agendamentos")) || []
-        );
     }, []);
 
     function agendar(event) {
         event.preventDefault();
 
-        const cliente = clientes.find((c) => c.id === clienteId);
-        const servico = servicos.find((s) => s.id === servicoId);
+        const cliente = clientes.find((c) => String(c.id) === String(clienteId));
+        const servico = servicos.find((s) => String(s.id) === String(servicoId));
 
         if (!cliente || !servico) {
             alert("Selecione um cliente e um serviço válidos!");
@@ -46,13 +42,8 @@ function AgendarServico() {
 
         const listaAtualizada = [...agendamentos, novoAgendamento];
         setAgendamentos(listaAtualizada);
-        localStorage.setItem(
-            "agendamentos",
-            JSON.stringify(listaAtualizada)
-        );
 
-        console.log(novoAgendamento);
-        console.log("Agendamento feito com sucesso!");
+        localStorage.setItem("agendamentos", JSON.stringify(listaAtualizada));
 
         setClienteId("");
         setServicoId("");
@@ -123,20 +114,6 @@ function AgendarServico() {
                 </form>
             )}
 
-            {agendamentos.length > 0 && (
-                <>
-                    <h2>Agendamentos</h2>
-                    <ul>
-                        {agendamentos.map((a) => (
-                            <li key={a.id}>
-                                <strong>{a.cliente.nome}</strong> —{" "}
-                                {a.servico.nome} em {a.dataServico} às{" "}
-                                {a.horaServico}
-                            </li>
-                        ))}
-                    </ul>
-                </>
-            )}
         </div>
     );
 }
