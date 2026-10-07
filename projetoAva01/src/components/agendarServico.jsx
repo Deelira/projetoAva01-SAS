@@ -57,7 +57,7 @@ function AgendarServico({ agendamentos, setAgendamentos }) {
 
     return (
         <div className="agendamentos">
-            <h1>Agendar Serviço</h1>
+            <h1>AGENDAR SERVIÇO</h1>
 
             {clientes.length === 0 || servicos.length === 0 ? (
                 <p>
