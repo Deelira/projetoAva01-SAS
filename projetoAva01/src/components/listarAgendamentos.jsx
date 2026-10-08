@@ -25,7 +25,7 @@ function ListarAgendamentos({ agendamentos, setAgendamentos }) {
 
     return (
         <div className="lista-agendamentos">
-            <h1>Agendamentos</h1>
+            <h1>AGENDAMENTOS</h1>
 
             {agendamentos.length === 0 ? (
                 <li>Não existem agendamentos cadastrados.</li>

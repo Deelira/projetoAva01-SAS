@@ -28,7 +28,7 @@ function AgendarServico({ agendamentos, setAgendamentos }) {
         }
 
         const novoAgendamento = {
-            id: crypto.randomUUID().slice(0, 6),
+            id: crypto.randomUUID(),
             cliente: { id: cliente.id, nome: cliente.nome },
             servico: {
                 id: servico.id,
@@ -43,9 +43,9 @@ function AgendarServico({ agendamentos, setAgendamentos }) {
 
         const listaAtualizada = [...agendamentos, novoAgendamento];
         setAgendamentos(listaAtualizada);
-        alert("Serviço agendado com sucesso!")
+        alert("Serviço agendado com sucesso!");
 
-        localStorage.setItem("agendamentos", JSON.stringify(listaAtualizada));
+        storage.setAgendamentos(listaAtualizada);
 
         setClienteId("");
         setServicoId("");
@@ -57,7 +57,7 @@ function AgendarServico({ agendamentos, setAgendamentos }) {
 
     return (
         <div className="agendamentos">
-            <h1>Agendar Serviço</h1>
+            <h1>AGENDAR SERVIÇO</h1>
 
             {clientes.length === 0 || servicos.length === 0 ? (
                 <p>
@@ -91,7 +91,7 @@ function AgendarServico({ agendamentos, setAgendamentos }) {
                         <option value="">Selecione um serviço</option>
                         {servicos.map((s) => (
                             <option key={s.id} value={s.id}>
-                                {s.nome} — R$ {s.preco.toFixed(2)}
+                                {s.nome} — R$ {Number(s.preco).toFixed(2)}
                             </option>
                         ))}
                     </select>

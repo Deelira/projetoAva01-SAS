@@ -15,15 +15,22 @@ function CadastrarCliente() {
             return;
         }
 
+
+        const atuais = storage.getClientes() ?? [];
+
+        if (atuais.some((e) => e.email === email)) {
+            alert("Este e-mail já está cadastrado!");
+            return;
+        }
+
         const novoCliente = {
-            id: crypto.randomUUID().slice(0, 6),
+            id: crypto.randomUUID(),
             nome,
             email,
             usuario,
             senha,
         };
-
-        const atuais = storage.getClientes();
+        
         storage.setClientes([...atuais, novoCliente]);
 
         console.log(novoCliente);

@@ -1,23 +1,67 @@
 /* ============================================================
-   VARIÁVEIS GLOBAIS
+   VARIÁVEIS GLOBAIS + TEMAS
    ============================================================ */
 :root {
+  /* Cores fixas da identidade */
+  --azul-primario: #001755;
+  --azul-escuro: #000a26;
+  --cinza-borda: #d1d5db;
+  --cinza-fundo: #f9fafb;
+  --cinza-texto: #6b7280;
+
+  /* Containers */
   --container-max-width: 900px;
   --container-margin: 2rem auto;
   --container-padding: 2rem;
   --container-radius: 12px;
   --container-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   --container-bg: #ffffff;
+}
 
-  --azul-primario: #001755;
-  --azul-escuro: #000a26;
-  --cinza-borda: #d1d5db;
-  --cinza-fundo: #f9fafb;
-  --cinza-texto: #6b7280;
+/* ---------- TEMA CLARO (padrão) ---------- */
+:root,
+[data-theme="light"] {
+  --bg-pagina: #eef2f7;
+  --logo-cor: var(--azul-primario);
+  --saudacao-cor: #374151;
+
+  --menu-inativo-borda: var(--azul-primario);
+  --menu-inativo-texto: var(--azul-primario);
+  --menu-inativo-bg: transparent;
+
+  --toggle-bg: var(--azul-primario);
+  --toggle-cor: #ffffff;
+}
+
+/* ---------- TEMA ESCURO ---------- */
+[data-theme="dark"] {
+  --bg-pagina: #0f172a;
+  --logo-cor: #ffffff;
+  --saudacao-cor: #e5e7eb;
+
+  --menu-inativo-borda: #ffffff;
+  --menu-inativo-texto: #ffffff;
+  --menu-inativo-bg: transparent;
+
+  --toggle-bg: #ffffff;
+  --toggle-cor: var(--azul-primario);
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: var(--bg-pagina);
+  color: var(--saudacao-cor);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
 }
 
 /* ============================================================
-   CONTAINERS PADRÃO — mesma largura para todos
+   CONTAINERS PADRÃO
    ============================================================ */
 .container-cliente,
 .cadastro-servico,
@@ -32,10 +76,13 @@
   background: var(--container-bg);
   border-radius: var(--container-radius);
   box-shadow: var(--container-shadow);
+
+  font-family: "Montserrat", sans-serif;
+  color: #111827;
 }
 
 /* ============================================================
-   TÍTULOS COMPARTILHADOS
+   TÍTULOS
    ============================================================ */
 .container-cliente h1,
 .cadastro-servico h1,
@@ -47,83 +94,154 @@
   font-weight: 600;
   color: var(--azul-primario);
   letter-spacing: 1.5px;
+  line-height: 1.2;
+}
+
+.container-cliente h2,
+.cadastro-servico h2,
+.agendamentos h2,
+.lista-agendamentos h2 {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  font-family: "EB Garamond", serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--azul-primario);
+  letter-spacing: 1px;
 }
 
 /* ============================================================
-   LAYOUT INTERNO DE CADA CONTAINER
+   LAYOUT INTERNO DOS FORMULÁRIOS
    ============================================================ */
 .container-cliente,
-.cadastro-servico {
+.cadastro-servico,
+.agendamentos form {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: 1rem 1.5rem;
-}
-
-.agendamentos,
-.lista-agendamentos {
-  font-family: "Montserrat", sans-serif;
+  gap: 0 1.5rem;
 }
 
 /* ============================================================
-   FORMULÁRIO — CONTAINER CLIENTE
+   LABELS
    ============================================================ */
-.container-cliente .full-width {
-  grid-column: 1 / -1;
-}
-
-.container-cliente label {
+.container-cliente label,
+.cadastro-servico label,
+.agendamentos form label {
   display: block;
-  margin: 0.5rem;
+  margin: 1.25rem 0 0.4rem 0;
   font-size: 0.875rem;
   font-weight: 600;
   color: #333;
   text-align: left;
+  align-self: auto;
 }
 
+.container-cliente h1 + label,
+.cadastro-servico h1 + label,
+.agendamentos form > label:first-child {
+  margin-top: 0;
+}
+
+/* ============================================================
+   INPUTS / SELECTS / TEXTAREAS
+   ============================================================ */
 .container-cliente input,
 .container-cliente select,
-.container-cliente textarea {
+.container-cliente textarea,
+.cadastro-servico input,
+.cadastro-servico select,
+.agendamentos input,
+.agendamentos select {
   width: 100%;
+  height: 46px;
   padding: 0.65rem 0.85rem;
   border: 1px solid var(--cinza-borda);
   border-radius: 8px;
   font-size: 0.95rem;
   font-family: inherit;
   background-color: var(--cinza-fundo);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  color: #111827;
   box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.container-cliente textarea {
+  height: auto;
+  min-height: 90px;
+  resize: vertical;
+}
+
+.agendamentos input:hover,
+.agendamentos select:hover {
+  border-color: #b8c0cc;
+  background-color: #ffffff;
 }
 
 .container-cliente input:focus,
 .container-cliente select:focus,
-.container-cliente textarea:focus {
+.container-cliente textarea:focus,
+.cadastro-servico input:focus,
+.cadastro-servico select:focus,
+.agendamentos input:focus,
+.agendamentos select:focus {
   outline: none;
   border-color: var(--azul-primario);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
   background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 23, 85, 0.15);
 }
 
 .container-cliente input:disabled,
-.container-cliente select:disabled {
+.container-cliente select:disabled,
+.cadastro-servico input:disabled,
+.agendamentos input:disabled,
+.agendamentos select:disabled {
   background-color: #e5e7eb;
   cursor: not-allowed;
   color: var(--cinza-texto);
 }
 
-.container-cliente textarea {
-  resize: vertical;
-  min-height: 90px;
+/* Setinha dos selects */
+.cadastro-servico select,
+.agendamentos select {
+  padding-right: 2.25rem;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23001755' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
 }
 
-.container-cliente .form-actions {
+.cadastro-servico select:invalid,
+.cadastro-servico select option[value=""],
+.agendamentos select:invalid,
+.agendamentos select option[value=""] {
+  color: #9ca3af;
+}
+
+.cadastro-servico select option,
+.agendamentos select option {
+  background-color: #ffffff;
+  color: #111827;
+  padding: 0.5rem;
+}
+
+/* ============================================================
+   FULL WIDTH
+   ============================================================ */
+.container-cliente .full-width,
+.cadastro-servico .full-width {
   grid-column: 1 / -1;
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 0.5rem;
 }
 
-.container-cliente button {
+/* ============================================================
+   BOTÕES DE FORMULÁRIO
+   ============================================================ */
+.container-cliente button,
+.cadastro-servico button {
   padding: 0.7rem 1.5rem;
   border: none;
   border-radius: 8px;
@@ -133,13 +251,15 @@
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.container-cliente button[type="submit"] {
-  margin-top: 1rem;
+.container-cliente button[type="submit"],
+.cadastro-servico button[type="submit"] {
+  margin-top: 1.5rem;
   background-color: var(--azul-primario);
   color: #fff;
 }
 
-.container-cliente button[type="submit"]:hover {
+.container-cliente button[type="submit"]:hover,
+.cadastro-servico button[type="submit"]:hover {
   background-color: var(--azul-escuro);
 }
 
@@ -154,179 +274,16 @@
   background-color: var(--cinza-borda);
 }
 
-.container-cliente button:active {
-  transform: scale(0.98);
-}
-
-/* ============================================================
-   FORMULÁRIO — CADASTRO SERVIÇO
-   ============================================================ */
-.cadastro-servico .full-width {
-  grid-column: 1 / -1;
-}
-
-.cadastro-servico label {
-  text-align: left;
-  display: block;
-  margin: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #333;
-}
-
-.cadastro-servico input {
-  width: 100%;
-  padding: 0.65rem 0.85rem;
-  border: 1px solid var(--cinza-borda);
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-family: inherit;
-  background-color: var(--cinza-fundo);
-  color: #111827;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  box-sizing: border-box;
-}
-
-.cadastro-servico input:focus {
-  outline: none;
-  border-color: var(--azul-primario);
-  box-shadow: 0 0 0 3px rgba(0, 23, 85, 0.15);
-  background-color: #fff;
-}
-
-.cadastro-servico input:disabled {
-  background-color: #e5e7eb;
-  cursor: not-allowed;
-  color: var(--cinza-texto);
-}
-
-.cadastro-servico select {
-  width: 100%;
-  padding: 0.65rem 2.25rem 0.65rem 0.85rem;
-  border: 1px solid var(--cinza-borda);
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-family: inherit;
-  background-color: var(--cinza-fundo);
-  color: #111827;
-  box-sizing: border-box;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23001755' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 1rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.cadastro-servico select:focus {
-  outline: none;
-  border-color: var(--azul-primario);
-  background-color: #fff;
-  box-shadow: 0 0 0 3px rgba(0, 23, 85, 0.15);
-}
-
-.cadastro-servico select:invalid,
-.cadastro-servico select option[value=""] {
-  color: #9ca3af;
-}
-
-.cadastro-servico select option {
-  background-color: #ffffff;
-  color: #111827;
-  padding: 0.5rem;
-}
-
-.cadastro-servico button {
-  padding: 0.7rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-.cadastro-servico button[type="submit"] {
-  margin-top: 1rem;
-  background-color: var(--azul-primario);
-  color: #fff;
-}
-
-.cadastro-servico button[type="submit"]:hover {
-  background-color: var(--azul-escuro);
-}
-
+.container-cliente button:active,
 .cadastro-servico button:active {
   transform: scale(0.98);
-}
-
-/* ============================================================
-   AGENDAMENTOS — FORMULÁRIO
-   ============================================================ */
-.agendamentos form {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 1rem 1.5rem;
-}
-
-.agendamentos form label {
-  display: block;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #333;
-  text-align: left;
-  align-self: center;
-}
-
-.agendamentos input,
-.agendamentos select {
-  width: 100%;
-  height: 46px;
-  padding: 0.65rem 0.85rem;
-  border: 1px solid var(--cinza-borda);
-  border-radius: 8px;
-  background-color: var(--cinza-fundo);
-  color: #111827;
-  font-size: 0.95rem;
-  font-family: inherit;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-}
-
-.agendamentos input:hover,
-.agendamentos select:hover {
-  border-color: #b8c0cc;
-  background-color: #ffffff;
-}
-
-.agendamentos input:focus,
-.agendamentos select:focus {
-  outline: none;
-  border-color: var(--azul-primario);
-  background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(0, 23, 85, 0.12);
-}
-
-.agendamentos select {
-  padding-right: 2.25rem;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23001755' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 1rem;
 }
 
 .agendamentos button[type="submit"] {
   grid-column: 1 / -1;
   justify-self: center;
   min-width: 150px;
-  margin-top: 0.25rem;
+  margin-top: 1.5rem;
   padding: 0.7rem 1.5rem;
   border: none;
   border-radius: 8px;
@@ -347,9 +304,165 @@
   transform: scale(0.98);
 }
 
+.container-cliente .form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* ============================================================
+   NAV-BAR (logo + botão de tema)
+   ============================================================ */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 1.25rem 2rem 0.5rem;
+  box-sizing: border-box;
+}
+
+.nav-bar .logo h2 {
+  margin: 0;
+  font-family: "EB Garamond", serif;
+  font-size: 26px;
+  letter-spacing: 1.5px;
+  color: var(--logo-cor);
+  transition: color 0.3s ease;
+}
+
+/* Botão de alternar tema */
+.toggle-tema {
+  position: fixed;
+  top: 1rem;
+  right: 1.25rem;
+  z-index: 100;
+
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--toggle-bg);
+  color: var(--toggle-cor);
+  font-size: 0.85rem;
+  line-height: 1;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s ease, color 0.2s ease,
+              transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.toggle-tema:hover {
+  transform: translateY(-1px) scale(1.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22);
+}
+
+.toggle-tema:active {
+  transform: scale(0.94);
+}
+
+/* ============================================================
+   SAUDAÇÃO
+   ============================================================ */
+.saudacao {
+  max-width: 1800px;
+  margin: 0 auto 1.25rem;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  color: var(--saudacao-cor);
+  letter-spacing: 0.5px;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+/* ============================================================
+   MENU
+   ============================================================ */
+.menu {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  max-width: 1800px;
+  margin: 0 auto 2rem;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+.menu-item {
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--menu-inativo-borda);
+  border-radius: 999px;
+  background-color: var(--menu-inativo-bg);
+  color: var(--menu-inativo-texto);
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease,
+              border-color 0.2s ease, box-shadow 0.2s ease,
+              transform 0.1s ease;
+}
+
+.menu-item:hover {
+  background-color: var(--azul-primario);
+  border-color: var(--azul-primario);
+  color: #ffffff;
+}
+
+.menu-item:active {
+  transform: scale(0.97);
+}
+
+.menu-item.ativo {
+  background-color: var(--azul-primario);
+  border-color: var(--azul-primario);
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(0, 23, 85, 0.2);
+}
+
+/* ============================================================
+   CONTEÚDO DA PÁGINA ATIVA
+   ============================================================ */
+.conteudo-pagina {
+  max-width: 1800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem 3rem;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;   /* NOVO — centraliza no eixo vertical */
+  flex: 1;                   /* NOVO — ocupa todo o espaço livre */
+  min-height: 0;             /* evita overflow em flex */
+}
+.conteudo-pagina > .container-cliente,
+.conteudo-pagina > .cadastro-servico,
+.conteudo-pagina > .agendamentos,
+.conteudo-pagina > .lista-agendamentos {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0;
+}
+
 /* ============================================================
    MENSAGEM "SEM AGENDAMENTOS"
-   (funciona no .agendamentos E no .lista-agendamentos)
    ============================================================ */
 .agendamentos > p,
 .lista-agendamentos > p {
@@ -365,17 +478,6 @@
 /* ============================================================
    LISTA DE AGENDAMENTOS
    ============================================================ */
-.agendamentos h2,
-.lista-agendamentos h2 {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid #e5e7eb;
-  font-family: "EB Garamond", serif;
-  font-size: 20px;
-  color: var(--azul-primario);
-  letter-spacing: 1px;
-}
-
 .agendamentos ul,
 .lista-agendamentos ul {
   display: flex;
@@ -658,17 +760,66 @@
   }
 }
 
-.saudacao {
-  margin-top: 1rem;
-  font-family: "EB Garamond";
-  color: #e5e7eb;
-  letter-spacing: 0.5px;
+/* ============================================================
+   LAYOUT PRINCIPAL — DUAS COLUNAS (mantido, caso use)
+   ============================================================ */
+.layout-principal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0 2rem 3rem;
+  box-sizing: border-box;
+}
+
+.coluna-esquerda,
+.coluna-direita {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  min-width: 0;
+}
+
+.layout-principal .container-cliente,
+.layout-principal .cadastro-servico,
+.layout-principal .agendamentos,
+.layout-principal .lista-agendamentos {
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 
 /* ============================================================
-   RESPONSIVO — UNIFICADO
+   RESPONSIVO
    ============================================================ */
+@media (max-width: 1024px) {
+  .layout-principal {
+    grid-template-columns: 1fr;
+    padding: 0 1rem 2rem;
+    gap: 1.5rem;
+  }
+}
+
 @media (max-width: 640px) {
+  .nav-bar,
+  .saudacao,
+  .menu,
+  .conteudo-pagina {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .menu {
+    justify-content: center;
+  }
+
+  .menu-item {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.8rem;
+  }
+
   .container-cliente,
   .cadastro-servico,
   .agendamentos,
@@ -679,10 +830,7 @@
   }
 
   .container-cliente,
-  .cadastro-servico {
-    grid-template-columns: 1fr;
-  }
-
+  .cadastro-servico,
   .agendamentos form {
     grid-template-columns: 1fr;
   }
@@ -691,4 +839,32 @@
     width: 100%;
     justify-self: stretch;
   }
+}
+
+/* ============================================================
+   RODAPÉ
+   ============================================================ */
+.rodape {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0rem 0rem 2rem;
+  box-sizing: border-box;
+
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.4px;
+  color: var(--saudacao-cor);
+
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.rodape p {
+  margin: 0;
+}
+
+.rodape strong {
+  font-weight: 700;
+  color: var(--logo-cor);
+  transition: color 0.3s ease;
 }

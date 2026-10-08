@@ -11,15 +11,21 @@ function CadastrarServico() {
     function atualizarDados(event) {
         event.preventDefault();
 
-        const novoServico = {
-            id: crypto.randomUUID().slice(0, 6),
+        const atuais = storage.getServicos() ?? [];
+
+        if (atuais.some((e) => e.nome?.trim().toLowerCase() === nome.trim().toLowerCase())) {
+            alert("Este serviço já está cadastrado!");
+            return;
+        }
+
+         const novoServico = {
+            id: crypto.randomUUID(),
             nome,
             descricao,
             preco: Number(preco),
             categoria,
         };
 
-        const atuais = storage.getServicos();
         storage.setServicos([...atuais, novoServico]);
 
         console.log(novoServico);
