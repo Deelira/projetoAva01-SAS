@@ -101,7 +101,6 @@ function App() {
       <footer className='rodape'>
         <p>Desenvolvido por <strong>Alisson Lira</strong> &amp; <strong>Eduarda Cardoso</strong></p>
       </footer>
-      
     </>
   )
 }
