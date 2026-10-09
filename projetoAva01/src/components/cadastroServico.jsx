@@ -2,6 +2,7 @@ import { useState } from "react";
 import { storage } from "../utils/storage.js";
 
 function CadastrarServico() {
+
     const [categorias] = useState(["Outros Serviços"]);
     const [nome, setNome] = useState("");
     const [descricao, setDescricao] = useState("");
@@ -16,7 +17,7 @@ function CadastrarServico() {
         if (atuais.some((e) => e.nome?.trim().toLowerCase() === nome.trim().toLowerCase())) {
             alert("Este serviço já está cadastrado!");
             return;
-        }
+        };
 
          const novoServico = {
             id: crypto.randomUUID(),
@@ -36,7 +37,7 @@ function CadastrarServico() {
         setDescricao("");
         setPreco("");
         setCategoria("");
-    }
+    };
 
     return (
         <div className="cadastro-servico">

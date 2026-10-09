@@ -13,7 +13,7 @@ function CadastrarCliente() {
         if (senha.length < 6) {
             alert("A senha precisa conter 6 ou mais caracteres!");
             return;
-        }
+        };
 
 
         const atuais = storage.getClientes() ?? [];
@@ -21,7 +21,7 @@ function CadastrarCliente() {
         if (atuais.some((e) => e.email === email)) {
             alert("Este e-mail já está cadastrado!");
             return;
-        }
+        };
 
         const novoCliente = {
             id: crypto.randomUUID(),
@@ -41,7 +41,7 @@ function CadastrarCliente() {
         setEmail("");
         setUser("");
         setSenha("");
-    }
+    };
 
     return (
         <div className="container-cliente">

@@ -12,7 +12,7 @@ function ListarAgendamentos({ agendamentos, setAgendamentos }) {
         
         setAgendamentos(listaAtualizada);
         localStorage.setItem("agendamentos", JSON.stringify(listaAtualizada));
-    }
+    };
 
 
     function excluirAgendamento(id) {
@@ -20,8 +20,8 @@ function ListarAgendamentos({ agendamentos, setAgendamentos }) {
             const listaAtualizada = agendamentos.filter((agendamento) => agendamento.id !== id);
             setAgendamentos(listaAtualizada);
             localStorage.setItem("agendamentos", JSON.stringify(listaAtualizada));
-        }
-    }
+        };
+    };
 
     return (
         <div className="lista-agendamentos">
@@ -53,19 +53,19 @@ function ListarAgendamentos({ agendamentos, setAgendamentos }) {
                                             Cancelar
                                         </button>
                                     </>
-                                )}
+                                )};
 
                                 {a.status === "confirmado" && (
                                     <button className="btn-cancelar" onClick={() => atualizarStatus(a.id, "cancelado")}>
                                         Cancelar
                                     </button>
-                                )}
+                                )};
 
                                 {a.status === "cancelado" && (
                                     <button className="btn-excluir" onClick={() => excluirAgendamento(a.id)}>
                                         Excluir
                                     </button>
-                                )}
+                                )};
                             </div>
                         </li>
                     ))}

@@ -28,7 +28,7 @@ function AgendarServico({ setAgendamentos }) {
             return;
         };
 
-         if (!cliente || !servico) {
+        if (!cliente || !servico) {
             alert("Selecione um cliente e um serviço válidos!");
             return;
         };
@@ -53,7 +53,7 @@ function AgendarServico({ setAgendamentos }) {
         if (indisponivel) {
             alert("Serviço indisponível para esta data e horário!")
             return;
-        }
+        };
 
         const novoAgendamento = {
             id: crypto.randomUUID(),
