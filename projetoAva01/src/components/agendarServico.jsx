@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 import { storage } from "../utils/storage.js";
 
 
-function AgendarServico({ agendamentos, setAgendamentos }) {
+function AgendarServico({ setAgendamentos }) {
+
     const [clientes, setClientes] = useState([]);
     const [servicos, setServicos] = useState([]);
 
@@ -22,8 +23,35 @@ function AgendarServico({ agendamentos, setAgendamentos }) {
         const cliente = clientes.find((c) => String(c.id) === String(clienteId));
         const servico = servicos.find((s) => String(s.id) === String(servicoId));
 
-        if (!cliente || !servico) {
+        if (!clienteId || !servicoId || !dataServico || !horaServico) {
+            alert("Preencha todos os campos.");
+            return;
+        };
+
+         if (!cliente || !servico) {
             alert("Selecione um cliente e um serviço válidos!");
+            return;
+        };
+
+        const agendados = storage.getAgendamentos();
+
+        const agora = new Date();
+        const dataHoraEscolhida = new Date(`${dataServico}T${horaServico}`);
+
+        if (dataHoraEscolhida < agora) {
+            alert("Não é possível agendar para uma data/hora no passado.");
+            return;
+        };
+
+        const indisponivel = agendados.some(
+            (a) => a.status !== 'cancelado' &&
+                String(a.servico.id) === String(servicoId) &&
+                a.dataServico === dataServico &&
+                a.horaServico === horaServico
+        );
+
+        if (indisponivel) {
+            alert("Serviço indisponível para esta data e horário!")
             return;
         }
 
@@ -41,7 +69,7 @@ function AgendarServico({ agendamentos, setAgendamentos }) {
             criadoEm: new Date().toISOString(),
         };
 
-        const listaAtualizada = [...agendamentos, novoAgendamento];
+        const listaAtualizada = [...agendados, novoAgendamento];
         setAgendamentos(listaAtualizada);
         alert("Serviço agendado com sucesso!");
 
@@ -52,8 +80,8 @@ function AgendarServico({ agendamentos, setAgendamentos }) {
         setData("");
         setHora("");
 
-    
-    }
+
+    };
 
     return (
         <div className="agendamentos">
